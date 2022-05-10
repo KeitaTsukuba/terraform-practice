@@ -1,5 +1,9 @@
+data "aws_lb" "example" {
+  name = "example"
+}
+
 resource "aws_lb_listener" "http" {
-  load_balancer_arn = aws_lb.example.arn
+  load_balancer_arn = data.aws_lb.example.arn
   port              = "80"
   protocol          = "HTTP"
 
@@ -19,11 +23,11 @@ data "aws_route53_zone" "example" {
 }
 
 data "aws_acm_certificate" "example" {
-  domain   = data.aws_acm_certificate.example.name
+  domain   = data.aws_route53_zone.example.name
 }
 
 resource "aws_lb_listener" "https" {
-  load_balancer_arn = aws_lb.example.arn
+  load_balancer_arn = data.aws_lb.example.arn
   port              = "443"
   protocol          = "HTTPS"
   certificate_arn   = data.aws_acm_certificate.example.arn
@@ -41,7 +45,7 @@ resource "aws_lb_listener" "https" {
 }
 
 resource "aws_lb_listener" "redirect_http_to_https" {
-  load_balancer_arn = aws_lb.example.arn
+  load_balancer_arn = data.aws_lb.example.arn
   port              = "8080"
   protocol          = "HTTP"
 
@@ -56,13 +60,17 @@ resource "aws_lb_listener" "redirect_http_to_https" {
   }
 }
 
+data "aws_lb_target_group" "example" {
+  name = "example"
+}
+
 resource "aws_lb_listener_rule" "example" {
   listener_arn = aws_lb_listener.https.arn
   priority     = 100
 
   action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.example.arn
+    target_group_arn = data.aws_lb_target_group.example.arn
   }
 
   condition {
