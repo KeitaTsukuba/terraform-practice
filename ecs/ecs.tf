@@ -4,12 +4,12 @@ data "aws_vpc" "example" {
   }
 }
 
-data "aws_subnet" "public_0" {
-    cidr_block = "10.0.1.0/24"
+data "aws_subnet" "private_0" {
+    cidr_block = "10.0.65.0/24"
 }
 
-data "aws_subnet" "public_1" {
-    cidr_block = "10.0.2.0/24"
+data "aws_subnet" "private_1" {
+    cidr_block = "10.0.66.0/24"
 }
 
 resource "aws_ecs_cluster" "example" {
