@@ -41,7 +41,7 @@ data "aws_iam_policy" "ecs_events_role_policy" {
 }
 
 module "ecs_events_role" {
-  source     = "./iam_role"
+  source     = "./iam-main"
   name       = "ecs-events"
   identifier = "events.amazonaws.com"
   policy     = data.aws_iam_policy.ecs_events_role_policy.policy

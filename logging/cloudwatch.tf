@@ -19,11 +19,11 @@ data "aws_iam_role" "ecs-events" {
 }
 
 data "aws_ecs_cluster" "example" {
-  name = "example"
+  cluster_name = "example"
 }
 
 data "aws_ecs_task_definition" "example_batch" {
-  family = "example-batch"
+  task_definition = "example-batch"
 }
 
 data "aws_subnet" "private_0" {
