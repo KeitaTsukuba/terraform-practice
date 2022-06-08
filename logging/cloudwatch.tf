@@ -40,7 +40,7 @@ resource "aws_cloudwatch_event_target" "example_batch" {
     launch_type         = "FARGATE"
     task_count          = 1
     platform_version    = "1.3.0"
-    task_definition_arn = data.aws_ecs_task_definition.example_batch.arn
+    task_definition_arn = data.aws_ecs_task_definition.example_batch.id
 
     network_configuration {
       assign_public_ip = "false"
